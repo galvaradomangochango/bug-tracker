@@ -9,6 +9,14 @@ pipeline {
                     reuseNode true
                 }
             }
+            environment {
+                // The container runs as UID 1000 with no writable HOME, so Go's
+                // default cache path (/.cache/go-build) can't be created. Point
+                // HOME/caches at the writable workspace instead.
+                GOCACHE = "${WORKSPACE}/.cache/go-build"
+                GOPATH = "${WORKSPACE}/.cache/go-path"
+                HOME = "${WORKSPACE}"
+            }
             steps {
                 dir('bugtracker-backend') {
                     echo 'Running unit tests for backend...'
