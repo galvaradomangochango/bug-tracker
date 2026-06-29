@@ -24,5 +24,19 @@ pipeline {
                 }
             }
         }
+        stage('Unit Test - Frontend') {
+            agent {
+                docker {
+                    image 'node:18'
+                    reuseNode true
+                }
+            }
+            steps {
+                dir('bugtracker-frontend') {
+                    echo 'Running unit tests for frontend...'
+                    sh 'npm test'
+                }
+            }
+        }
     }
 }
