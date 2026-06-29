@@ -6,7 +6,7 @@ pipeline {
             steps {
                 dir('bugtracker-backend') {
                     echo 'Running unit tests for backend...'
-                    go test -v ./...
+                    sh 'go test -v ./...'
                 }
             }
         }
