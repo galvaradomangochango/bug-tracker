@@ -34,7 +34,10 @@ pipeline {
             steps {
                 dir('bugtracker-frontend') {
                     echo 'Running unit tests for frontend...'
-                    sh 'npm test'
+                    sh '''
+                        npm ci
+                        npm test
+                    '''
                 }
             }
         }
