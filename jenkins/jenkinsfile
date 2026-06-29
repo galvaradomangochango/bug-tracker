@@ -19,13 +19,26 @@ pipeline {
             }
             steps {
                 dir('bugtracker-backend') {
-                    echo 'Running unit tests for backend...'
-                    sh 'go test -v ./... 2>&1 | go-junit-report > tests-results.xml'
+                    sh '''
+                        go test -v ./... 2>&1 | go-junit-report > tests-results.xml
+                        
+                        # Generate coverage report
+                        go test -coverprofile=coverage.out covermode=atomic ./...
+                        go tool cover -html=coverage.out -o coverage.html
+
+                        mkdir -p reports
+                        mv coverage.html reports/
+                    '''
                 }
             }
             post {
                 always {
                     junit 'bugtracker-backend/tests-results.xml'
+                    publishHTML target {
+                        reportDir 'bugtracker-backend/reports'
+                        reportFiles 'coverage.html'
+                        reportName 'Backend Coverage Report'
+                    }
                 }
             }
         }
