@@ -83,6 +83,10 @@ func createServer() *http.Server {
 	handler := c.Handler(r)
 
 	// Register all routes
+	r.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		w.Write([]byte(`{"service":"bug-tracker-api","status":"ok","docs":"/api/health"}`))
+	}).Methods("GET")
 	r.HandleFunc("/api/health", handlers.HealthCheck).Methods("GET")
 	apiRouter := r.PathPrefix("/api").Subrouter()
 	handlers.RegisterRoutes(apiRouter)
