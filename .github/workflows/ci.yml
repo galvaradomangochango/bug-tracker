@@ -191,3 +191,11 @@ jobs:
           name: API Test Results
           path: ./tests-api/test-results/*.xml
           reporter: jest-junit
+
+      - name: Publish E2E Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: E2E Test Results
+          path: ./tests-e2e/test-results/results.xml
+          reporter: jest-junit
