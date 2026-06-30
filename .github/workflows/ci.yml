@@ -34,7 +34,7 @@ jobs:
         with:
           name: Backend Unit Test Results
           path: bugtracker-backend/test-results.xml
-          reporter: jest-test
+          reporter: jest-junit
 
   unit-tests-frontend:
     runs-on: ubuntu-latest
