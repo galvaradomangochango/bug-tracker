@@ -148,7 +148,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: api-tests-results
-          path: tests-api/test-results/
+          path: ./tests-api/test-results/
           retention-days: 20
 
       - name: Upload API Tests Playwright Report
@@ -156,5 +156,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: api-tests-playwright-report
-          path: tests-api/playwright-report/
+          path: ./tests-api/playwright-report
           retention-days: 20
+
+      - name: Publis API Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: API Test Results
+          path: ./tests-api/test-results/*.xml
+          reporter: jest-junit
