@@ -168,7 +168,23 @@ jobs:
           path: ./tests-api/playwright-report
           retention-days: 20
 
-      - name: Publis API Test Results
+      - name: Upload E2E Test Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-tests-results
+          path: ./tests-e2e/test-results/
+          retention-days: 20
+
+      - name: Upload E2E Tests Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-tests-playwright-report
+          path: ./tests-e2e/playwright-report
+          retention-days: 20
+
+      - name: Publish API Test Results
         uses: dorny/test-reporter@v1
         if: always()
         with:
