@@ -138,3 +138,23 @@ jobs:
         run: |
           npm ci
           npx playwright test
+
+      - name: Shutdown Application
+        run: |
+          docker compose down
+
+      - name: Upload API Tests Results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-tests-results
+          path: tests-api/test-results/
+          retention-days: 20
+
+      - name: Upload API Tests Playwright Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-tests-playwright-report
+          path: tests-api/playwright-report/
+          retention-days: 20
