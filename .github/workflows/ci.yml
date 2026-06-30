@@ -82,7 +82,7 @@ jobs:
           echo "```" >> $GITHUB_STEP_SUMMARY
 
           echo "report<<EOF" >> $GITHUB_OUTPUT
-          cat pk.txt >> $GITHUB_OUTPUT
+          cat full_output.txt >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name : Publish Frontend Test Results
